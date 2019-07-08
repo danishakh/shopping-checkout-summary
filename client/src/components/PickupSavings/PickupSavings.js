@@ -4,10 +4,12 @@ import { Grid, Typography, Tooltip } from '@material-ui/core';
 
 const tooltipText = `Save this amount by dropping in for a pickup instead of getting it delivered!`;
 
-export default function PickupSavings(props) {
+export default class PickupSavings extends Component {
+
+    render() {
 
         return (
-            <Grid container justify='flex-start' alignItems="center" direction="row" spacing={10}>
+            <Grid>
                 <Grid item>
                     <Tooltip 
                         id="pickup-savings-tooltip"
@@ -17,17 +19,18 @@ export default function PickupSavings(props) {
                         placement="bottom"
                         title={tooltipText}
                     >
-                        <Typography align="center" color="textPrimary" variant="body1">
-                            Pickup Savings:
+                        <Typography align="inherit" color="textPrimary" variant="subtitle1">
+                            <u>Pickup Savings:</u>
                         </Typography>
                     </Tooltip>
                 </Grid>
                 <Grid item>
-                    <Typography align="center" color="error" variant="body1">
-                        {`$ ${props.savingsAmount}`}
+                    <Typography align="inherit" color="error" variant="overline">
+                        {`$ ${this.props.savingsAmount}`}
                     </Typography>
                 </Grid>
             </Grid>
             
         )
+    }
 }
