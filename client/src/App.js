@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import { Container, Grid, Typography, Paper } from '@material-ui/core';
+import { Container, Grid, Typography, Paper, Divider } from '@material-ui/core';
 
 import Subtotal from './components/Subtotal';
 import PickupSavings from './components/PickupSavings';
+import Taxes from './components/Taxes';
+import TotalPrice from './components/TotalPrice';
+import ItemDetails from './components/ItemDetails';
 
 
 class App extends Component {
@@ -13,7 +16,15 @@ class App extends Component {
 
     this.state = {
       total: 100,
-      pickupSavings: -5.75
+      pickupSavings: -5.75,
+      tax: 0,
+      totalPrice: 0,
+      cartItems: {
+          id: 1,
+          name: 'adidas pharrell williams nmd hu holi - equality',
+          price: '750',
+          qty: 1
+      }
     }
   }
   
@@ -36,6 +47,22 @@ class App extends Component {
                 </Grid>
                 <Grid item sm={12}>
                   <PickupSavings savingsAmount={this.state.pickupSavings} />
+                </Grid>
+                <Grid item sm={12}>
+                  <Taxes tax={this.state.tax} />
+                </Grid>
+              </Grid>
+
+              <br />
+                <Divider variant="middle" />
+              <br />
+
+              <Grid container justify='space-between' alignItems="flex-start" direction="column" spacing={1}>
+                <Grid item sm={12}>
+                  <TotalPrice total={this.state.totalPrice} />
+                </Grid>
+                <Grid item sm={12}>
+                  <ItemDetails description={this.state.cartItems.name} price={this.state.cartItems.price} qty={this.state.cartItems.qty} />
                 </Grid>
               </Grid>
           </Paper>
