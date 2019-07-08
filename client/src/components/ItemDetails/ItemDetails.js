@@ -20,7 +20,7 @@ export default class ItemDetails extends Component {
                 <Typography variant="overline">Shopping Cart Details</Typography>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails>
-                    <Grid container justify='space-between' alignItems='flex-start' direction='row' spacing={2}>
+                    <Grid container justify='space-between' alignItems='center' direction='row' spacing={2}>
                         <Grid item md={6}>
                             <img
                                 width={100}
@@ -30,7 +30,7 @@ export default class ItemDetails extends Component {
                             />
                         </Grid>
                         <Grid item md={6}>
-                            <Grid container justify='space-between' alignItems="flex-start" direction="column" spacing={1}>
+                            <Grid container justify='space-between' alignItems="center" direction="column" spacing={1}>
                                 <Grid item>
                                     <Typography>
                                         {this.props.description}
