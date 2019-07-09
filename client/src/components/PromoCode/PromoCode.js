@@ -1,21 +1,17 @@
 import React, { Component } from 'react'
-import {Grid, Typography, TextField, Button, Fab } from '@material-ui/core';
+import {Grid, Typography, TextField, Fab } from '@material-ui/core';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-export default class PromoCode extends Component {
-    constructor(props) {
-        super(props);
+import { connect } from 'react-redux';
+import { handleChange } from '../../actions/promoCodeActions';
 
-        this.state = {
-            promoCode: ''
-        }
-    }
+class PromoCode extends Component {
 
-    onChangeHandler = e => {
-        this.setState({ [e.target.id]: e.target.value });
+    handleChange = e => {
+        this.props.handleChange(e);
     }
 
     render() {
@@ -36,7 +32,7 @@ export default class PromoCode extends Component {
                                 name="promo-code"
                                 fullWidth
                                 value={this.props.promoCode}
-                                onChange={this.onChangeHandler}
+                                onChange={this.handleChange}
                             />
                         </Grid>
                         <Grid item>
@@ -58,3 +54,9 @@ export default class PromoCode extends Component {
         )
     }
 }
+
+const mapStateToProps = state => ({
+    promoCode: state.promoCode.value
+});
+
+export default connect(mapStateToProps, { handleChange })(PromoCode);

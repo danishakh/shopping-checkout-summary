@@ -8,6 +8,9 @@ import TotalPrice from './components/TotalPrice';
 import ItemDetails from './components/ItemDetails';
 import PromoCode from './components/PromoCode';
 
+import { connect } from 'react-redux';
+import { handleChange } from './actions/promoCodeActions';
+
 
 class App extends Component {
 
@@ -42,6 +45,18 @@ class App extends Component {
         totalPrice: (Number(this.state.subTotal) + Number(this.state.tax) + this.state.pickupSavings)
       });
     });
+  }
+
+  giveDiscountHandler() {
+    if (this.props.promoCode === 'AKHTAR91') {
+      this.setState({
+        totalPrice: (this.state.totalPrice * 0.8).toFixed(2)
+      }, () => {
+        this.setState({
+          disablePromo: true
+        })
+      })
+    }
   }
   
   render() {
@@ -78,7 +93,7 @@ class App extends Component {
                   <ItemDetails description={this.state.cartItems.name} price={this.state.cartItems.price} qty={this.state.cartItems.qty} />
                 </Grid>
                 <Grid item sm={12}>
-                  <PromoCode giveDiscount={() => this.giveDiscountHandler()} disabled={this.state.disablePromo} />
+                  <PromoCode giveDiscount={() => this.giveDiscountHandler()} isDisabled={this.state.disablePromo} />
                 </Grid>
                 <Grid item sm={12}>
                   <TotalPrice total={this.state.totalPrice} />
@@ -93,4 +108,8 @@ class App extends Component {
   
 }
 
-export default App;
+const mapStateToProps = state => ({
+  promoCode: state.promoCode.value
+});
+
+export default connect(mapStateToProps, { handleChange })(App);
