@@ -33,6 +33,8 @@ class PromoCode extends Component {
                                 fullWidth
                                 value={this.props.promoCode}
                                 onChange={this.handleChange}
+                                disabled={this.props.isDisabled}
+                                helperText="Get 20% OFF with 'AKHTAR91'"
                             />
                         </Grid>
                         <Grid item>
