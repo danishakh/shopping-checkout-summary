@@ -7,7 +7,7 @@ export default class Taxes extends Component {
             <Grid>
                 <Grid item>
                     <Typography align="inherit" color="textPrimary" variant="subtitle1">
-                        Taxes:
+                        Taxes: <Typography variant="caption">(based on 95131)</Typography>
                     </Typography>
                 </Grid>
                 <Grid item>

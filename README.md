@@ -15,4 +15,4 @@ The goal of this exercise is to build a **"Purchase Summary"** user interface us
 
 # Solution
 
-![Shopping Cart Checkout Summary Demo](/shopping_summary_checkout.gif)
+![Shopping Cart Checkout Summary Demo](/shopping_checkout_summary.gif)
