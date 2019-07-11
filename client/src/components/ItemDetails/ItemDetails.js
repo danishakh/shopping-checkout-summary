@@ -5,19 +5,19 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-import { connect } from 'react-redux';
-import { getCartItems } from '../../actions/cartItemActions';
+//import { connect } from 'react-redux';
+//import { getCartItems } from '../../actions/cartItemActions';
 
-class ItemDetails extends Component {
+export default class ItemDetails extends Component {
 
-    componentDidMount() {
-        this.props.getCartItems();
-    }
+    // componentDidMount() {
+    //     this.props.getCartItems();
+    // }
 
     render() {
 
         const cartItems = this.props.cartItems.map(item => (
-                <Grid container justify='space-between' alignItems='center' direction='row' spacing={2}>
+                <Grid key={item.id} container justify='space-between' alignItems='center' direction='row' spacing={2}>
                     <Grid item md={6}>
                         <img
                             width={100}
@@ -65,8 +65,8 @@ class ItemDetails extends Component {
     }
 }
 
-const mapStateToProps = state => ({
-    cartItems: state.cart.cartItems
-});
+// const mapStateToProps = state => ({
+//     cartItems: state.cart.cartItems
+// });
 
-export default connect(mapStateToProps, { getCartItems })(ItemDetails);
+// export default connect(mapStateToProps, { getCartItems })(ItemDetails);

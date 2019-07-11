@@ -9,7 +9,7 @@ const cartItems = [
     {
         id: 2,
         name: 'adidas NMD HU pharrell human race',
-        price: '350',
+        price: 350,
         qty: 2,
         image: 'https://sneakerbardetroit.com/wp-content/uploads/2016/07/human-race-adidas-nmd-2.jpg'
     }

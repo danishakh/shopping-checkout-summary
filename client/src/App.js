@@ -10,6 +10,7 @@ import PromoCode from './components/PromoCode';
 
 import { connect } from 'react-redux';
 import { handleChange } from './actions/promoCodeActions';
+import { getCartItems, calcTaxAndTotal } from './actions/cartItemActions';
 
 
 class App extends Component {
@@ -34,20 +35,13 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.calcTaxAndTotal();
+    this.props.getCartItems()
+    this.props.calcTaxAndTotal();
   }
 
-  calcTaxAndTotal() {
-    this.setState({
-      tax: ((this.state.subTotal + this.state.pickupSavings) * 0.09).toFixed(2)
-    }, () => {
-      this.setState({
-        totalPrice: (Number(this.state.subTotal) + Number(this.state.tax) + this.state.pickupSavings)
-      });
-    });
-  }
 
   giveDiscountHandler() {
+    this.calcTaxAndTotal()
     if (this.props.promoCode === 'AKHTAR91') {
       this.setState({
         totalPrice: (this.state.totalPrice * 0.8).toFixed(2)
@@ -74,13 +68,17 @@ class App extends Component {
           <Paper elevation={20} style={{padding: 30}} md={6}>
               <Grid container justify='space-between' alignItems="flex-start" direction="column" spacing={1}>
                 <Grid item sm={12}>
-                  <Subtotal price={this.state.subTotal.toFixed(2)} />
+                  <Subtotal 
+                  price={this.props.cartTotals.itemTotal}
+                  />
                 </Grid>
+
                 <Grid item sm={12}>
-                  <PickupSavings savingsAmount={this.state.pickupSavings} />
+                  <PickupSavings savingsAmount={(this.props.pickupSavings).toFixed(2)} />
                 </Grid>
+
                 <Grid item sm={12}>
-                  <Taxes tax={this.state.tax} />
+                  <Taxes tax={this.props.cartTotals.tax} />
                 </Grid>
               </Grid>
 
@@ -90,13 +88,13 @@ class App extends Component {
 
               <Grid container justify='space-between' alignItems="center" direction="column" spacing={1}>
                 <Grid item sm={12}>
-                  <ItemDetails description={this.state.cartItems.name} price={this.state.cartItems.price} qty={this.state.cartItems.qty} />
+                  <ItemDetails cartItems={this.props.cartItems}/>
                 </Grid>
                 <Grid item sm={12}>
                   <PromoCode giveDiscount={() => this.giveDiscountHandler()} isDisabled={this.state.disablePromo} />
                 </Grid>
                 <Grid item sm={12}>
-                  <TotalPrice total={this.state.totalPrice} />
+                  <TotalPrice total={(Number(this.props.cartTotals.finalTotal) + this.props.pickupSavings).toFixed(2)} />
                 </Grid>
               </Grid>
           </Paper>
@@ -109,7 +107,10 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-  promoCode: state.promoCode.value
+  promoCode: state.promoCode.value,
+  cartItems: state.cart.cartItems,
+  cartTotals: state.cart.cartTotals,
+  pickupSavings: state.cart.pickupSavings
 });
 
-export default connect(mapStateToProps, { handleChange })(App);
+export default connect(mapStateToProps, { handleChange, getCartItems, calcTaxAndTotal })(App);

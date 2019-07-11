@@ -1,7 +1,9 @@
-import { GET_CART_ITEMS } from '../actions/types';
+import { GET_CART_ITEMS, CALC_TAX_AND_TOTAL } from '../actions/types';
 
 const initialState = {
-    cartItems: []
+    cartItems: [],
+    pickupSavings: -20.50,
+    cartTotals: {}
 }
 
 export default function(state = initialState, action) {
@@ -10,6 +12,11 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 cartItems: action.payload
+            }
+        case CALC_TAX_AND_TOTAL:
+            return {
+                ...state,
+                cartTotals: action.payload
             }
         default: 
             return state;
