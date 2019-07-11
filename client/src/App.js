@@ -10,7 +10,7 @@ import PromoCode from './components/PromoCode';
 
 import { connect } from 'react-redux';
 import { handleChange } from './actions/promoCodeActions';
-import { getCartItems, calcTaxAndTotal } from './actions/cartItemActions';
+import { getCartItems, calcTaxAndTotal, calcPromoTotal } from './actions/cartItemActions';
 
 
 class App extends Component {
@@ -20,16 +20,6 @@ class App extends Component {
     super(props);
 
     this.state = {
-      subTotal: 750,
-      pickupSavings: -5.75,
-      tax: 0,
-      totalPrice: 0,
-      cartItems: {
-          id: 1,
-          name: 'adidas pharrell williams nmd hu holi - equality',
-          price: 750,
-          qty: 1
-      },
       disablePromo: false
     }
   }
@@ -41,19 +31,22 @@ class App extends Component {
 
 
   giveDiscountHandler() {
-    this.calcTaxAndTotal()
-    if (this.props.promoCode === 'AKHTAR91') {
+    
+    // if promo code exists in our promos list then apply it and calculate new total
+    if (this.props.promoCode in this.props.promos) {
+      let promoValueToApply = this.props.promos[this.props.promoCode];
+      this.props.calcPromoTotal(promoValueToApply, this.props.cartTotals.finalTotal);
+
+      // disable text box and apply promo button
       this.setState({
-        totalPrice: (this.state.totalPrice * 0.8).toFixed(2)
-      }, () => {
-        this.setState({
-          disablePromo: true
-        })
-      })
+        disablePromo: true
+      });
     }
+
   }
   
   render() {
+    
     return (
       <Container maxWidth="md" style={{marginTop: 50}}>
         <Grid container justify='space-between' alignItems="center" direction="column" spacing={6}>
@@ -94,7 +87,18 @@ class App extends Component {
                   <PromoCode giveDiscount={() => this.giveDiscountHandler()} isDisabled={this.state.disablePromo} />
                 </Grid>
                 <Grid item sm={12}>
-                  <TotalPrice total={(Number(this.props.cartTotals.finalTotal) + this.props.pickupSavings).toFixed(2)} />
+                
+                {/* Some conditional rendering based on if a promo code is applied */}
+                {
+                  this.state.disablePromo
+                  ? <TotalPrice 
+                      total={(Number(this.props.promoTotal) + this.props.pickupSavings).toFixed(2)} 
+                    />
+                  : <TotalPrice 
+                      total={(Number(this.props.cartTotals.finalTotal) + this.props.pickupSavings).toFixed(2)} 
+                    />
+                }
+
                 </Grid>
               </Grid>
           </Paper>
@@ -110,7 +114,9 @@ const mapStateToProps = state => ({
   promoCode: state.promoCode.value,
   cartItems: state.cart.cartItems,
   cartTotals: state.cart.cartTotals,
-  pickupSavings: state.cart.pickupSavings
+  pickupSavings: state.cart.pickupSavings,
+  promos: state.cart.promos,
+  promoTotal: state.cart.promoTotal
 });
 
-export default connect(mapStateToProps, { handleChange, getCartItems, calcTaxAndTotal })(App);
+export default connect(mapStateToProps, { handleChange, getCartItems, calcTaxAndTotal, calcPromoTotal })(App);

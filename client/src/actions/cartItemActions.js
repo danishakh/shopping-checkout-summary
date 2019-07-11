@@ -1,4 +1,4 @@
-import { GET_CART_ITEMS, CALC_TAX_AND_TOTAL } from './types';
+import { GET_CART_ITEMS, CALC_TAX_AND_TOTAL, CALC_PROMO_TOTAL } from './types';
 import cartItems from '../cartItems';
 
 // reading cart items from hardcoded object
@@ -27,10 +27,21 @@ export const calcTaxAndTotal = () => dispatch => {
     const finalTotal = (Number(itemTotal) + Number(tax)).toFixed(2);
 
     const cartTotals = {itemTotal, tax, finalTotal}
-    console.log(itemTotal);
+
     dispatch({
         type: CALC_TAX_AND_TOTAL,
         payload: cartTotals
     })
     
+}
+
+export const calcPromoTotal = (promo, total) => dispatch => {
+    const final = (Number(promo) * Number(total)).toFixed(2)
+
+    console.log(final);
+    
+    dispatch({
+        type: CALC_PROMO_TOTAL,
+        payload: final
+    });
 }
