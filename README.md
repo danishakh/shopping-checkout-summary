@@ -17,6 +17,6 @@ The goal of this exercise is to build a **"Purchase Summary"** user interface us
 - Performed all cart calculations and user interactions with Redux depending on cart items. So now if I change my `client/src/cartItems.js` object, all the calculations will be handled automatically via Redux actions and reducers.
 
 
-# Solution
+# Complete Solution GIF
 
 ![Shopping Cart Checkout Summary Demo](/shopping_checkout_summary.gif)
