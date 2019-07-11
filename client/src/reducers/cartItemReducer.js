@@ -4,7 +4,7 @@ const initialState = {
     cartItems: [],
     pickupSavings: -20.50,
     cartTotals: {},
-    promos: {'AKHTAR91': 0.8, 'JULY4': 0.9}
+    promos: {'AKHTAR91': '0.8', 'JULY4': '0.9'}
 }
 
 export default function(state = initialState, action) {

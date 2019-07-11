@@ -17,8 +17,8 @@ export default class ItemDetails extends Component {
     render() {
 
         const cartItems = this.props.cartItems.map(item => (
-                <Grid key={item.id} container justify='space-between' alignItems='center' direction='row' spacing={2}>
-                    <Grid item md={6}>
+                <Grid key={item.id} container justify='space-between' alignItems='center' direction='row' spacing={1}>
+                    <Grid item sm={6} md={6}>
                         <img
                             width={100}
                             height={100}
@@ -26,7 +26,7 @@ export default class ItemDetails extends Component {
                             src={item.image}
                         />
                     </Grid>
-                    <Grid item md={6}>
+                    <Grid item sm={6} md={6}>
                         <Grid container justify='space-between' alignItems="center" direction="column" spacing={1}>
                             <Grid item>
                                 <Typography>
@@ -56,7 +56,7 @@ export default class ItemDetails extends Component {
                 <Typography variant="overline">Shopping Cart Details</Typography>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails> 
-                    <Grid container justify='space-between' alignItems='center' direction='column' spacing={4}>
+                    <Grid container justify='space-between' alignItems='center' direction='column' spacing={1}>
                         {cartItems}
                     </Grid>
                 </ExpansionPanelDetails>
